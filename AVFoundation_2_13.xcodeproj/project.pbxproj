@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F77D6A8A2453268F0036ED12 /* MediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77D6A892453268F0036ED12 /* MediaModel.swift */; };
 		F7BE63502450DAA900B5AFA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BE634F2450DAA900B5AFA1 /* AppDelegate.swift */; };
 		F7BE63522450DAA900B5AFA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BE63512450DAA900B5AFA1 /* SceneDelegate.swift */; };
 		F7BE63542450DAA900B5AFA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BE63532450DAA900B5AFA1 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F77D6A892453268F0036ED12 /* MediaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaModel.swift; sourceTree = "<group>"; };
 		F7BE634C2450DAA900B5AFA1 /* AVFoundation_2_13.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AVFoundation_2_13.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7BE634F2450DAA900B5AFA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7BE63512450DAA900B5AFA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				F7BE634F2450DAA900B5AFA1 /* AppDelegate.swift */,
 				F7BE63512450DAA900B5AFA1 /* SceneDelegate.swift */,
 				F7BE63532450DAA900B5AFA1 /* ViewController.swift */,
+				F77D6A892453268F0036ED12 /* MediaModel.swift */,
 				F7BE63552450DAA900B5AFA1 /* Main.storyboard */,
 				F7BE63582450DAAB00B5AFA1 /* Assets.xcassets */,
 				F7BE635A2450DAAB00B5AFA1 /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F77D6A8A2453268F0036ED12 /* MediaModel.swift in Sources */,
 				F7BE63542450DAA900B5AFA1 /* ViewController.swift in Sources */,
 				F7BE63502450DAA900B5AFA1 /* AppDelegate.swift in Sources */,
 				F7BE63522450DAA900B5AFA1 /* SceneDelegate.swift in Sources */,
@@ -285,6 +289,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9H4ZLWV74V;
 				INFOPLIST_FILE = AVFoundation_2_13/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -302,6 +307,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9H4ZLWV74V;
 				INFOPLIST_FILE = AVFoundation_2_13/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

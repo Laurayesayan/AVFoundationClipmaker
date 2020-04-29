@@ -62,9 +62,9 @@
 				F7BE63512450DAA900B5AFA1 /* SceneDelegate.swift */,
 				F7BE63532450DAA900B5AFA1 /* ViewController.swift */,
 				F77D6A892453268F0036ED12 /* MediaModel.swift */,
+				F7BE635A2450DAAB00B5AFA1 /* LaunchScreen.storyboard */,
 				F7BE63552450DAA900B5AFA1 /* Main.storyboard */,
 				F7BE63582450DAAB00B5AFA1 /* Assets.xcassets */,
-				F7BE635A2450DAAB00B5AFA1 /* LaunchScreen.storyboard */,
 				F7BE635D2450DAAB00B5AFA1 /* Info.plist */,
 			);
 			path = AVFoundation_2_13;

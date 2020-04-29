@@ -16,7 +16,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGr-v7-OGn">
-                                <rect key="frame" x="177.5" y="620" width="20" height="22"/>
+                                <rect key="frame" x="165" y="603" width="45" height="45"/>
+                                <color key="backgroundColor" red="0.92455846070000003" green="0.92466253040000002" blue="0.92449861759999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="krv-Jw-6r1"/>
+                                    <constraint firstAttribute="height" constant="45" id="tOG-7g-QHx"/>
+                                </constraints>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="plus.circle" catalog="system"/>
                                 <connections>
@@ -24,23 +29,32 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Xz-2h-D5Q">
-                                <rect key="frame" x="180" y="573" width="15" height="22"/>
+                                <rect key="frame" x="165" y="550" width="45" height="45"/>
+                                <color key="backgroundColor" red="0.94041782620000003" green="0.94052356479999999" blue="0.94035691020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="1tN-eI-RZe"/>
+                                    <constraint firstAttribute="height" constant="45" id="hxk-CO-ebA"/>
+                                </constraints>
                                 <color key="tintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="play.fill" catalog="system"/>
                                 <connections>
-                                    <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U4A-3x-7k5"/>
+                                    <action selector="playComposition:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U4A-3x-7k5"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fGr-v7-OGn" firstAttribute="top" secondItem="7Xz-2h-D5Q" secondAttribute="bottom" constant="25" id="G3I-lA-eBr"/>
                             <constraint firstItem="fGr-v7-OGn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="a6v-sJ-RvS"/>
+                            <constraint firstItem="fGr-v7-OGn" firstAttribute="top" secondItem="7Xz-2h-D5Q" secondAttribute="bottom" constant="8" id="jsL-Yi-y4C"/>
                             <constraint firstItem="7Xz-2h-D5Q" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rJm-8M-0Cd"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="fGr-v7-OGn" secondAttribute="bottom" constant="25" id="zqN-vx-7xw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="fGr-v7-OGn" secondAttribute="bottom" constant="19" id="zqN-vx-7xw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="addButton" destination="fGr-v7-OGn" id="HIQ-Fk-BKy"/>
+                        <outlet property="playButton" destination="7Xz-2h-D5Q" id="gzw-7e-ZG1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

@@ -22,8 +22,9 @@ class MediaModel {
         audio.append(AVAsset(url: url))
     }
     
-    func compose() -> AVAsset {
+    func compose(withAnimation: Bool) -> (AVAsset, AVVideoComposition?) {
         let composition = AVMutableComposition()
+        var videoComposition: AVMutableVideoComposition? = nil
         
         guard let videoTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: Int32(kCMPersistentTrackID_Invalid)) else {
             fatalError()
@@ -57,6 +58,58 @@ class MediaModel {
             }
         }
         
-        return composition
+        // В общем, я устала, но тут какая-то дичь с записью в videoTrack. Получается, что у меня нет доступа к следующему видео, пока не закночу с первым.
+
+        
+        if withAnimation && video.count == 2 {
+            let videoCompositionInstruction1 = addSmoothTransition(video1: video[0], video2: video[1], preferredTransgorm: videoTrack.preferredTransform)
+//            let videoCompositionInstruction2 = addScaledAppearance(of: video[2], at: video[0].duration + video[1].duration - CMTime(seconds: 3.0, preferredTimescale: 600))
+            videoComposition = AVMutableVideoComposition(propertiesOf: composition)
+            videoComposition!.instructions = [videoCompositionInstruction1]
+        }
+        
+        return (composition, videoComposition)
+    }
+    
+    func addSmoothTransition(video1: AVAsset, video2: AVAsset, preferredTransgorm: CGAffineTransform) -> AVMutableVideoCompositionInstruction {
+        let transitionDuration = CMTime(seconds: 2.0, preferredTimescale: 600)
+        
+        let videoCompositionInstructions = AVMutableVideoCompositionInstruction()
+        videoCompositionInstructions.timeRange = CMTimeRange(start: CMTime.zero, duration: video1.duration + video2.duration)
+        
+        let layerSize1 = video1.tracks(withMediaType: .video)[0].naturalSize
+
+        let layerInstruction1 = AVMutableVideoCompositionLayerInstruction(assetTrack: video1.tracks[0])
+        layerInstruction1.setTransform(preferredTransgorm, at: CMTime.zero)
+        
+        layerInstruction1.setCropRectangleRamp(fromStartCropRectangle: CGRect(origin: CGPoint(x: 0, y: 0), size: layerSize1), toEndCropRectangle: CGRect(origin: CGPoint(x: layerSize1.width, y: 0), size: layerSize1), timeRange: CMTimeRange(start: CMTime.zero, end: video1.duration - transitionDuration))
+        
+        let layerInstruction2 = AVMutableVideoCompositionLayerInstruction(assetTrack: video2.tracks[0])
+        layerInstruction2.setTransform(preferredTransgorm, at: video1.duration - transitionDuration)
+
+        let layerSize2 = video2.tracks(withMediaType: .video)[0].naturalSize
+
+        layerInstruction2.setCropRectangleRamp(fromStartCropRectangle: CGRect(x: 0, y: 0, width: 0, height: layerSize2.height), toEndCropRectangle: CGRect(origin: CGPoint(x: 0, y: 0), size: layerSize2), timeRange: CMTimeRange(start: video1.duration - transitionDuration, end: video1.duration + transitionDuration))
+        
+        videoCompositionInstructions.layerInstructions = [layerInstruction1, layerInstruction2]
+
+        return videoCompositionInstructions
+    }
+    
+    func addScaledAppearance(of video: AVAsset, at moment: CMTime) -> AVMutableVideoCompositionInstruction {
+        let transitionDuration = CMTime(seconds: 3.0, preferredTimescale: 600)
+        
+        let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: video.tracks[0])
+        
+        let layerSize = video.tracks(withMediaType: .video)[0].naturalSize.applying(video.preferredTransform)
+        
+        layerInstruction.setCropRectangleRamp(fromStartCropRectangle: CGRect(x: layerSize.width / 2, y: layerSize.height / 2, width: layerSize.width * 0.001, height: layerSize.height * 0.001), toEndCropRectangle: CGRect(x: 0, y: 0, width: layerSize.width, height: layerSize.height), timeRange: CMTimeRange(start: moment, duration: transitionDuration))
+        
+        let videoCompositionInstruction = AVMutableVideoCompositionInstruction()
+        videoCompositionInstruction.timeRange = CMTimeRange(start: moment, duration: moment + video.duration)
+        
+        videoCompositionInstruction.layerInstructions.append(layerInstruction)
+        
+        return videoCompositionInstruction
     }
 }

@@ -12,16 +12,24 @@ import AVFoundation
 import MobileCoreServices
 
 class ViewController: UIViewController {
+    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var addButton: UIButton!
     private var media = MediaModel()
     lazy var musicLibrory = createMusicLibrory()
     private let picker = UIPickerView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        playButton.layer.cornerRadius = playButton.frame.width / 2
+        addButton.layer.cornerRadius = addButton.frame.width / 2
     }
     
-    func play(media: AVAsset) {
-        let playerItem = AVPlayerItem(asset: media)
+    func play(asset: (AVAsset, AVVideoComposition?)) {
+        let playerItem = AVPlayerItem(asset: asset.0)
+        if let videoComposition = asset.1 {
+            playerItem.videoComposition = videoComposition
+        }
+        
         let player = AVPlayer(playerItem: playerItem)
         
 //        let playerLayer = AVPlayerLayer(player: player)
@@ -63,8 +71,8 @@ class ViewController: UIViewController {
         return result
     }
     
-    @IBAction func play(_ sender: Any) {
-        play(media: media.compose())
+    @IBAction func playComposition(_ sender: Any) {
+        play(asset: media.compose(withAnimation: true))
     }
 
 }

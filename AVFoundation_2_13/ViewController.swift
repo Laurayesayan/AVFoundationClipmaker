@@ -17,7 +17,8 @@ class ViewController: UIViewController {
     private var media = MediaModel()
     lazy var musicLibrory = createMusicLibrory()
     private let picker = UIPickerView()
-
+    @IBOutlet weak var animatedTransitionSwitch: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         playButton.layer.cornerRadius = playButton.frame.width / 2
@@ -55,8 +56,8 @@ class ViewController: UIViewController {
             self.presentVideoPicker(sourceType: .savedPhotosAlbum)
         }
         
-        videoSourcePicker.addAction(chooseAudio)
         videoSourcePicker.addAction(chooseVideo)
+        videoSourcePicker.addAction(chooseAudio)
         videoSourcePicker.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         present(videoSourcePicker, animated: true)
@@ -72,7 +73,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func playComposition(_ sender: Any) {
-        play(asset: media.compose(withAnimation: true))
+        if animatedTransitionSwitch.isOn {
+            play(asset: media.compose(withAnimation: true))
+        } else {
+            play(asset: media.compose(withAnimation: false))
+        }
+        
     }
 
 }

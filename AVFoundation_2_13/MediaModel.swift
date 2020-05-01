@@ -26,7 +26,9 @@ class MediaModel {
     func compose(withAnimation: Bool) -> (AVAsset, AVVideoComposition?) {
         let composition = AVMutableComposition()
         var videoComposition: AVMutableVideoComposition? = nil
-        var animationDuration = CMTime()
+        var animationDuration = CMTime(seconds: 0, preferredTimescale: 600)
+        var audioDuration: CMTime? = nil
+        videoTracks = []
         
         guard let audioTrack = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: Int32(kCMPersistentTrackID_Invalid)) else {
             fatalError()
@@ -42,8 +44,8 @@ class MediaModel {
             return videoTrack
         }
         
-        func insert(audio: AVAsset, at: CMTime) {
-            try? audioTrack.insertTimeRange(CMTimeRange(start: CMTime.zero, duration: audio.duration), of: audio.tracks(withMediaType: .audio)[0], at: CMTime.zero)
+        func insert(audio: AVAsset, at moment: CMTime, duration: CMTime) {
+            try? audioTrack.insertTimeRange(CMTimeRange(start: CMTime.zero, duration: duration), of: audio.tracks(withMediaType: .audio)[0], at: moment)
         }
         
         if withAnimation {
@@ -52,24 +54,43 @@ class MediaModel {
        
         if !video.isEmpty {
             videoTracks.append(insert(video: video[0], at: CMTime.zero))
+            audioDuration = video[0].duration
         
             for i in 1..<video.count {
-                videoTracks.append(insert(video: video[i], at: video[i-1].duration - animationDuration))
+                if withAnimation {
+                    videoTracks.append(insert(video: video[i], at: video[i-1].duration - animationDuration))
+                } else {
+                    videoTracks.append(insert(video: video[i], at: video[i-1].duration))
+                }
+                audioDuration = audioDuration! + video[i].duration - animationDuration
             }
         }
         
         if !audio.isEmpty {
-            insert(audio: audio[0], at: CMTime.zero)
-            
-            for i in 1..<audio.count {
-                insert(audio: audio[i], at: audio[i-1].duration)
+            if let audioDuration = audioDuration {
+                let audioPart = CMTime(seconds: audioDuration.seconds / Double(audio.count), preferredTimescale: 600)
+                insert(audio: audio[0], at: CMTime.zero, duration: audioPart)
+                
+                for i in 1..<audio.count {
+                    insert(audio: audio[i], at: CMTime(seconds: audioPart.seconds * Double(i), preferredTimescale: 600), duration: audioPart)
+                }
+            } else {
+                audioDuration = audio[0].duration
+                insert(audio: audio[0], at: CMTime.zero, duration: audioDuration!)
+                
+                for i in 1..<audio.count {
+                    insert(audio: audio[i], at: audio[i-1].duration, duration: audio[i].duration)
+                }
             }
+        }
+        
+        if !videoTracks.isEmpty {
+            videoComposition = AVMutableVideoComposition(propertiesOf: composition)
         }
         
         if withAnimation && video.count == 3 {
             let videoCompositionInstruction1 = addSmoothTransition(video1: 0, video2: 1, animationDuration: animationDuration)
             let videoCompositionInstruction2 = addScaledAppearance(videoNumber: 2, at: video[0].duration + video[1].duration, animationDuration: animationDuration)
-            videoComposition = AVMutableVideoComposition(propertiesOf: composition)
             videoComposition!.instructions = videoCompositionInstruction1
             videoComposition?.instructions.append(videoCompositionInstruction2)
         }

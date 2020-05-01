@@ -41,18 +41,36 @@
                                     <action selector="playComposition:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U4A-3x-7k5"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EA9-G4-5HH">
+                                <rect key="frame" x="270" y="616" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Animated transitions for 3 videos" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRO-aB-PXL">
+                                <rect key="frame" x="245" y="531" width="98" height="82"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="98" id="46R-iF-xZ6"/>
+                                    <constraint firstAttribute="height" constant="82" id="83m-Pk-6J5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fGr-v7-OGn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="a6v-sJ-RvS"/>
+                            <constraint firstItem="aRO-aB-PXL" firstAttribute="leading" secondItem="7Xz-2h-D5Q" secondAttribute="trailing" constant="35" id="awb-Gm-5yd"/>
+                            <constraint firstItem="EA9-G4-5HH" firstAttribute="top" secondItem="aRO-aB-PXL" secondAttribute="bottom" constant="3" id="f4m-CX-EOm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="EA9-G4-5HH" secondAttribute="bottom" constant="20" id="gWf-hY-gSq"/>
                             <constraint firstItem="fGr-v7-OGn" firstAttribute="top" secondItem="7Xz-2h-D5Q" secondAttribute="bottom" constant="8" id="jsL-Yi-y4C"/>
                             <constraint firstItem="7Xz-2h-D5Q" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rJm-8M-0Cd"/>
+                            <constraint firstItem="EA9-G4-5HH" firstAttribute="leading" secondItem="fGr-v7-OGn" secondAttribute="trailing" constant="60" id="xy7-bB-YiK"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="fGr-v7-OGn" secondAttribute="bottom" constant="19" id="zqN-vx-7xw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="addButton" destination="fGr-v7-OGn" id="HIQ-Fk-BKy"/>
+                        <outlet property="animatedTransitionSwitch" destination="EA9-G4-5HH" id="qgj-xh-g2s"/>
                         <outlet property="playButton" destination="7Xz-2h-D5Q" id="gzw-7e-ZG1"/>
                     </connections>
                 </viewController>

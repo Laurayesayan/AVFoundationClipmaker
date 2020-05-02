@@ -54,9 +54,25 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9i8-Sf-Dqk">
+                                <rect key="frame" x="308" y="20" width="45" height="45"/>
+                                <color key="backgroundColor" red="0.95304483179999999" green="0.95315188169999998" blue="0.95298308129999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="Xdi-4K-BIN"/>
+                                    <constraint firstAttribute="height" constant="45" id="ZPb-OV-lIq"/>
+                                </constraints>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="save:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fXQ-3C-P4A"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="9i8-Sf-Dqk" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="EuA-gg-Mvl"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9i8-Sf-Dqk" secondAttribute="trailing" constant="22" id="SF3-RU-u0A"/>
                             <constraint firstItem="fGr-v7-OGn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="a6v-sJ-RvS"/>
                             <constraint firstItem="aRO-aB-PXL" firstAttribute="leading" secondItem="7Xz-2h-D5Q" secondAttribute="trailing" constant="35" id="awb-Gm-5yd"/>
                             <constraint firstItem="EA9-G4-5HH" firstAttribute="top" secondItem="aRO-aB-PXL" secondAttribute="bottom" constant="3" id="f4m-CX-EOm"/>
@@ -72,6 +88,7 @@
                         <outlet property="addButton" destination="fGr-v7-OGn" id="HIQ-Fk-BKy"/>
                         <outlet property="animatedTransitionSwitch" destination="EA9-G4-5HH" id="qgj-xh-g2s"/>
                         <outlet property="playButton" destination="7Xz-2h-D5Q" id="gzw-7e-ZG1"/>
+                        <outlet property="saveButton" destination="9i8-Sf-Dqk" id="liz-AR-PbX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

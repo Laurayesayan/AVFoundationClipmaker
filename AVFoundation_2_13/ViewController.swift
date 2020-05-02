@@ -18,11 +18,14 @@ class ViewController: UIViewController {
     lazy var musicLibrory = createMusicLibrory()
     private let picker = UIPickerView()
     @IBOutlet weak var animatedTransitionSwitch: UISwitch!
+    @IBOutlet weak var saveButton: UIButton!
+    private var composition: (AVAsset, AVVideoComposition?)? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         playButton.layer.cornerRadius = playButton.frame.width / 2
         addButton.layer.cornerRadius = addButton.frame.width / 2
+        saveButton.layer.cornerRadius = saveButton.frame.width / 2
     }
     
     func play(asset: (AVAsset, AVVideoComposition?)) {
@@ -33,11 +36,6 @@ class ViewController: UIViewController {
         
         let player = AVPlayer(playerItem: playerItem)
         
-//        let playerLayer = AVPlayerLayer(player: player)
-//        playerLayer.frame = view.bounds
-//        view.layer.addSublayer(playerLayer)
-//        player.play()
-
         let controller = AVPlayerViewController()
         controller.player = player
 
@@ -45,7 +43,26 @@ class ViewController: UIViewController {
             player.play()
         }
     }
+    
+    @IBAction func save(_ sender: Any) {
+        media.export(asset: composition!) { success in
+            switch success {
+            case true:
+                let alert = UIAlertController(title: "Result", message: "Successfully saved", preferredStyle: .alert)
+                self.present(alert, animated: true) {
+                    alert.dismiss(animated: true, completion: nil)
+                }
+                break
+            case false:
+                let alert = UIAlertController(title: "Result", message: "Fail", preferredStyle: .alert)
+                self.present(alert, animated: true) {
+                    alert.dismiss(animated: true, completion: nil)
+                }
+                break
+            }
 
+        }
+    }
     
     @IBAction func addMedia(_ sender: Any) {
         let videoSourcePicker = UIAlertController()
@@ -74,11 +91,14 @@ class ViewController: UIViewController {
     
     @IBAction func playComposition(_ sender: Any) {
         if animatedTransitionSwitch.isOn {
-            play(asset: media.compose(withAnimation: true))
+            composition = media.compose(withAnimation: true)
+            play(asset: composition!)
+            saveButton.isHidden = false
         } else {
-            play(asset: media.compose(withAnimation: false))
+            composition = media.compose(withAnimation: false)
+            play(asset: composition!)
+            saveButton.isHidden = false
         }
-        
     }
 
 }

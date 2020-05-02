@@ -23,6 +23,38 @@ class MediaModel {
         audio.append(AVAsset(url: url))
     }
     
+    func export(asset: (AVAsset, AVVideoComposition?), completion: @escaping (Bool) -> Void) {
+        
+        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            fatalError()
+        }
+        
+        let videoName = UUID().uuidString
+        let exportURL = documentsDirectory.appendingPathComponent("\(videoName).mov")
+        
+        guard let export = AVAssetExportSession(asset: asset.0, presetName: AVAssetExportPresetMediumQuality) else {
+            fatalError()
+        }
+        
+        export.videoComposition = asset.1
+        export.outputFileType = .mov
+        export.outputURL = exportURL
+        
+        export.exportAsynchronously {
+            DispatchQueue.main.async {
+                switch export.status {
+                case .completed:
+                    print("Succsess")
+                    break
+                default:
+                    print("Something went wrong during export.")
+                    print(export.error ?? "unknown error")
+                    break
+                }
+            }
+        }
+    }
+    
     func compose(withAnimation: Bool) -> (AVAsset, AVVideoComposition?) {
         let composition = AVMutableComposition()
         var videoComposition: AVMutableVideoComposition? = nil
@@ -51,11 +83,11 @@ class MediaModel {
         if withAnimation {
             animationDuration = CMTime(seconds: 2.0, preferredTimescale: 600)
         }
-       
+        
         if !video.isEmpty {
             videoTracks.append(insert(video: video[0], at: CMTime.zero))
             audioDuration = video[0].duration
-        
+            
             for i in 1..<video.count {
                 if withAnimation {
                     videoTracks.append(insert(video: video[i], at: video[i-1].duration - animationDuration))
